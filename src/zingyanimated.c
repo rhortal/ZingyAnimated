@@ -5,7 +5,7 @@ static Window *window;
 static TextLayer *time_layer;
 static BitmapLayer *zingy_layer;
 static int current_zingy;
-static AppTimer *timer;
+// static AppTimer *timer;
 static Layer *window_layer;
 static GRect bounds;
 
@@ -25,7 +25,7 @@ static void window_load(Window *window) {
   text_layer_set_text_color(time_layer, GColorBlack);
   text_layer_set_background_color(time_layer, GColorClear);
   text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
-  /* text_layer_set_text(time_layer, "USA"); */
+  // text_layer_set_text(time_layer, "USA");
   layer_add_child(window_layer, text_layer_get_layer(time_layer));
 }
 void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
@@ -39,20 +39,26 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
 
   strftime(time_text, sizeof(time_text), time_format, tick_time);
   text_layer_set_text(time_layer, time_text);
+  bitmap_layer_set_bitmap(zingy_layer, zingys[current_zingy]);
+  current_zingy++;
+  if(current_zingy > 1){
+    current_zingy = 0;
+  }
 }
 
-static void timer_callback(void *data) {
+/* static void timer_callback(void *data) {
   bitmap_layer_set_bitmap(zingy_layer, zingys[current_zingy]);
 
   current_zingy++;
   if(current_zingy > 1){
     current_zingy = 0;
   }
-  timer = app_timer_register(100, timer_callback, NULL);
+  timer = app_timer_register(1000, timer_callback, NULL);
 }
 void start_animation(void){
-  timer = app_timer_register(100, timer_callback, NULL);
+  timer = app_timer_register(1000, timer_callback, NULL);
 }
+*/
 static void window_unload(Window *window) {
   text_layer_destroy(time_layer);
   bitmap_layer_destroy(zingy_layer);
@@ -74,7 +80,7 @@ static void init(void) {
       APP_LOG(APP_LOG_LEVEL_DEBUG, "loaded bitmap %u", i);
   }
 
-  start_animation();
+  //start_animation(); 
   tick_timer_service_subscribe(SECOND_UNIT, handle_second_tick);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "init end");
 }

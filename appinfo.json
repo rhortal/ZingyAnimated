@@ -18,13 +18,13 @@
         "media": [
             {
                 "type": "png",
-                "name": "ZINGY1",
-                "file": "images/zingy1.png"
+                "name": "ZINGY2",
+                "file": "images/zingy2.png"
             },
             {
                 "type": "png",
-                "name": "ZINGY2",
-                "file": "images/zingy2.png"
+                "name": "ZINGY1",
+                "file": "images/zingy1.png"
             }
         ]
     }
