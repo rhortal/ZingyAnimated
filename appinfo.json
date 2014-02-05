@@ -18,54 +18,14 @@
         "media": [
             {
                 "type": "png",
-                "name": "FLAG10",
-                "file": "images/flag10.png"
+                "name": "ZINGY1",
+                "file": "images/zingy1.png"
             },
             {
                 "type": "png",
-                "name": "FLAG9",
-                "file": "images/flag9.png"
+                "name": "ZINGY2",
+                "file": "images/zingy2.png"
             },
-            {
-                "type": "png",
-                "name": "FLAG8",
-                "file": "images/flag8.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG7",
-                "file": "images/flag7.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG6",
-                "file": "images/flag6.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG5",
-                "file": "images/flag5.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG4",
-                "file": "images/flag4.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG3",
-                "file": "images/flag3.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG2",
-                "file": "images/flag2.png"
-            },
-            {
-                "type": "png",
-                "name": "FLAG1",
-                "file": "images/flag1.png"
-            }
         ]
     }
 }

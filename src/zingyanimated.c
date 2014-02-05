@@ -3,29 +3,29 @@
 
 static Window *window;
 static TextLayer *time_layer;
-static BitmapLayer *flag_layer;
-static int current_flag;
+static BitmapLayer *zingy_layer;
+static int current_zingy;
 static AppTimer *timer;
 static Layer *window_layer;
 static GRect bounds;
 
 
-uint32_t flag_names[10] = {RESOURCE_ID_FLAG1, RESOURCE_ID_FLAG2, RESOURCE_ID_FLAG3, RESOURCE_ID_FLAG4, RESOURCE_ID_FLAG5, RESOURCE_ID_FLAG6, RESOURCE_ID_FLAG7, RESOURCE_ID_FLAG8, RESOURCE_ID_FLAG9, RESOURCE_ID_FLAG10};
-GBitmap* flags[10];
+uint32_t zingy_names[2] = {RESOURCE_ID_ZINGY1, RESOURCE_ID_ZINGY2};
+GBitmap* zingys[2];
 
 static void window_load(Window *window) {
-  flag_layer = bitmap_layer_create((GRect) { .origin = { 0, 30 }, .size = { bounds.size.w, 108 } });
-  bitmap_layer_set_bitmap(flag_layer, gbitmap_create_with_resource(RESOURCE_ID_FLAG1));
-  layer_add_child(window_layer, bitmap_layer_get_layer(flag_layer));
+  zingy_layer = bitmap_layer_create((GRect) { .origin = { 6, 6 }, .size = { bounds.size.w, 224 } });
+  bitmap_layer_set_bitmap(zingy_layer, gbitmap_create_with_resource(RESOURCE_ID_ZINGY1));
+  layer_add_child(window_layer, bitmap_layer_get_layer(zingy_layer));
 
-  current_flag = 0;
+  current_zingy = 0;
 
-  time_layer = text_layer_create((GRect) { .origin = {3, 45}, .size = { 50, 30 } });
+  time_layer = text_layer_create((GRect) { .origin = {50, 134}, .size = { 104, 40 } });
   text_layer_set_text_alignment(time_layer, GTextAlignmentCenter);
-  text_layer_set_text_color(time_layer, GColorWhite);
+  text_layer_set_text_color(time_layer, GColorBlack);
   text_layer_set_background_color(time_layer, GColorClear);
-  text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-  text_layer_set_text(time_layer, "USA");
+  text_layer_set_font(time_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
+  /* text_layer_set_text(time_layer, "USA"); */
   layer_add_child(window_layer, text_layer_get_layer(time_layer));
 }
 void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
@@ -42,11 +42,11 @@ void handle_second_tick(struct tm *tick_time, TimeUnits units_changed) {
 }
 
 static void timer_callback(void *data) {
-  bitmap_layer_set_bitmap(flag_layer, flags[current_flag]);
+  bitmap_layer_set_bitmap(zingy_layer, zingys[current_zingy]);
 
-  current_flag++;
-  if(current_flag > 8){
-    current_flag = 0;
+  current_zingy++;
+  if(current_zingy > 1){
+    current_zingy = 0;
   }
   timer = app_timer_register(100, timer_callback, NULL);
 }
@@ -55,7 +55,7 @@ void start_animation(void){
 }
 static void window_unload(Window *window) {
   text_layer_destroy(time_layer);
-  bitmap_layer_destroy(flag_layer);
+  bitmap_layer_destroy(zingy_layer);
 }
 
 static void init(void) {
@@ -69,8 +69,8 @@ static void init(void) {
   const bool animated = true;
   window_stack_push(window, animated);
 
-  for(int i = 0; i < 10; i++){
-      flags[i] = gbitmap_create_with_resource(flag_names[i]);
+  for(int i = 0; i < 2; i++){
+      zingys[i] = gbitmap_create_with_resource(zingy_names[i]);
       APP_LOG(APP_LOG_LEVEL_DEBUG, "loaded bitmap %u", i);
   }
 
